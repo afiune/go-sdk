@@ -1,0 +1,12 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+    export PATH="$PATH:$HOME/go/bin"
+    make prepare
+    make ci
+  displayName: 'build-and-test'
