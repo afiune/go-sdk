@@ -1,12 +1,31 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- script: |
-    export PATH="$PATH:$HOME/go/bin"
-    make prepare
-    make ci
-  displayName: 'build-and-test'
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: |
+        export PATH="$PATH:$HOME/go/bin"
+        make prepare
+        make ci
+- stage: Test
+  jobs:
+  - job: TestOnWindows
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+    - script: echo Testing on Windows!
+  - job: TestOnLinux
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: echo Testing on Linux!
+  - job: TestOnLinux
+    pool:
+      vmImage: macos-10.14
+    steps:
+    - script: echo Testing on Macos!
