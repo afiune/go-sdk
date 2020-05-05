@@ -24,7 +24,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - script: echo Testing on Linux!
-  - job: TestOnLinux
+  - job: TestOnMacos
     pool:
       vmImage: macos-10.14
     steps:
